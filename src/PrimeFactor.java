@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 /*
  * Find prime factors of a number in 3 steps
  * 1) Find ALL prime factors
@@ -8,9 +10,30 @@ import java.util.ArrayList;
  */
 public class PrimeFactor {
 	public static void main(String[] args) {
-		PrimeFactor pFact = new PrimeFactor();
-		//Scanner 
-		int userNum = 120;
+		PrimeFactor pFact = new PrimeFactor();		//call nonexistant constructor to start program
+
+		System.out.println("Find prime factors of a number");
+		Scanner input = new Scanner(System.in);
+		int userNum = 10;		//create user input variable with default value
+		boolean isGoodVal = false;
+		
+		
+		while(!isGoodVal){
+			try{
+				System.out.print("Enter a positive whole number & press ENTER: ");
+				userNum = input.nextInt();
+				isGoodVal = true;
+			}
+			catch(InputMismatchException e){
+				System.out.println("   Error! Must be an whole number, no decimals or letters");
+				input.next();		// Move to next so the program doesn't crash
+			}
+			
+		}
+		
+		
+		
+		//int userNum = 120;		//hardcoded for testing
 		
 		ArrayList<ArrayList<Integer>> factorsAndExponents = pFact.getPrimeFactors(userNum);
 		for(int i = 0; i< factorsAndExponents.size(); i++){			//display results in a nice format to read
@@ -29,9 +52,6 @@ public class PrimeFactor {
 		if(factorsAndExponents.size() == 1){
 			System.out.println("\n" + userNum + " is prime");
 		}
-		
-		//if len=0, then need try catch validation
-		//if len = 1, then it's a prime (on separate line)
 	}
 	
 	/**
