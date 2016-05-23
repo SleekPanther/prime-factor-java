@@ -15,10 +15,7 @@ public class PrimeFactor {
 		System.out.println("Find prime factors of a number");
 		Scanner input = new Scanner(System.in);
 		int userNum = 10;		//create user input variable with default value
-		boolean isGoodVal = false;
-		
-		
-		while(!isGoodVal){
+		boolean isGoodVal = false;while(!isGoodVal){
 			try{
 				System.out.print("Enter a positive whole number & press ENTER: ");
 				userNum = input.nextInt();
@@ -29,6 +26,10 @@ public class PrimeFactor {
 				input.next();		// Move to next so the program doesn't crash
 			}
 			
+			if(userNum < 1){
+				isGoodVal = false;
+				System.out.println("Number must be POSITIVE (greater than 0)");
+			}
 		}
 		
 		
