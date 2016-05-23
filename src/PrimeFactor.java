@@ -10,11 +10,17 @@ public class PrimeFactor {
 	public static void main(String[] args) {
 		PrimeFactor pFact = new PrimeFactor();
 		//Scanner 
-		int userNum = 5;
+		int userNum = 120;
 		
 		ArrayList<ArrayList<Integer>> factorsAndExponents = pFact.getPrimeFactors(userNum);
 		for(int i = 0; i< factorsAndExponents.size(); i++){			//display results in a nice format to read
-			System.out.print(factorsAndExponents.get(i).get(0) + "^" + factorsAndExponents.get(i).get(1) );		//print "number^exponent"
+			int exponent = factorsAndExponents.get(i).get(1);
+			if(exponent == 1){		//don't bother printing "^1" if exponent is 1
+				System.out.print(factorsAndExponents.get(i).get(0) );		//only print number
+			}
+			else{
+				System.out.print(factorsAndExponents.get(i).get(0) + "^" + exponent );		//print "number^exponent"
+			}
 			if(i != (factorsAndExponents.size()-1) ){		//print asterisks for multiplication, but only  if it's not the very last element
 				System.out.print("*");
 			}
