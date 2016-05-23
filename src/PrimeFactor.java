@@ -37,7 +37,7 @@ public class PrimeFactor {
 			}
 		}
 		return factors;
-				
+		
 //		int[] factorsArray = new int[5];
 //		factorsArray[0] = 3;
 //		return factorsArray;
