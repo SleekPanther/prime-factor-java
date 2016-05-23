@@ -8,22 +8,26 @@ public class PrimeFactor {
 		System.out.println( ( pFact.getPrimeFactors(90) ) );
 	}
 	
-	public ArrayList<Integer> getPrimeFactors(int num){
+	public ArrayList<ArrayList<Integer>> getPrimeFactors(int num){
 		// (hashset, return array, len=0>prime, 1 & num NOT prime,
 		//actually 2d arraylist, do a contains, if(contains){arr.get(index).add(currentVal++), else{add, with 2nd col=1
 		
 		
 		//new stuff
-		ArrayList<Integer> factors = new ArrayList<Integer>();
+		ArrayList<Integer> allFactors = new ArrayList<Integer>();
 		for(int divisor = 2; num>1; divisor++){
 			for(; num%divisor ==0; num /=divisor){
-				factors.add(divisor);		//add the prime divisor to list
+				allFactors.add(divisor);		//add the prime divisor to list
 			}
 		}
-		return factors;
 		
-//		int[] factorsArray = new int[5];
-//		factorsArray[0] = 3;
-//		return factorsArray;
+		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();
+		int howManyFactors = 0;
+		for(int originalFactor: allFactors){
+			factors.add(new ArrayList<Integer>());
+			//factors.get(howManyFactors).add(999);
+			factors.get(howManyFactors++).add(originalFactor);
+		}
+		return factors;
 	}
 }
