@@ -5,7 +5,7 @@ public class PrimeFactor {
 	public static void main(String[] args) {
 		PrimeFactor pFact = new PrimeFactor();
 		//int[] factors = pFact.getPrimeFactors();
-		System.out.println( ( pFact.getPrimeFactors(90) ) );
+		System.out.println( ( pFact.getPrimeFactors(360) ) );
 	}
 	
 	public ArrayList<ArrayList<Integer>> getPrimeFactors(int num){
@@ -16,9 +16,22 @@ public class PrimeFactor {
 		//new stuff
 		ArrayList<Integer> allFactors = new ArrayList<Integer>();
 		for(int divisor = 2; num>1; divisor++){
-			for(; num%divisor ==0; num /=divisor){
+			for(; num%divisor == 0; num /=divisor){
 				allFactors.add(divisor);		//add the prime divisor to list
 			}
+		}
+		
+		//remove duplicates & add to exponents array
+		ArrayList<Integer> exponents = new ArrayList<Integer>();
+		//for(int possibleRepeatedFactor : allFactors){
+		for(int i = 0; i< allFactors.size(); i++){	//i is really the index for exponents
+			int temp = allFactors.remove(i);		//get the thing from the old arrayList
+			while(allFactors.contains(temp)){
+				System.out.println("yo temp" + temp);
+				allFactors.remove( allFactors.indexOf(temp) );
+			}
+			//System.out.println(temp);
+			allFactors.add(i, temp);
 		}
 		
 		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();
