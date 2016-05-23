@@ -31,21 +31,19 @@ public class PrimeFactor {
 		
 		//remove duplicates & add to exponents array
 		ArrayList<Integer> exponents = new ArrayList<Integer>();
-		//for(int possibleRepeatedFactor : allFactors){
 		for(int i = 0; i< allFactors.size(); i++){	//i is really the index for exponents
 			exponents.add(i, 1);		//add a 1 @ the current index. Looping over allFactors, so all numbers when multiplied together must have 1 as their exponent @ the least, 2*2*3 is really [(2^1)*(2^1)*(3^1)] which will become (2^2)*(3^1)
-			int temp = allFactors.remove(i);		//get the thing from the old arrayList
-			while(allFactors.contains(temp)){
-				System.out.println("yo temp" + temp);
-				allFactors.remove( allFactors.indexOf(temp) );
-				exponents.set(i,  (exponents.get(i)+1)  );
+			int temp = allFactors.remove(i);		//remove an element & store its value, need to remove to see if the list contains any more occurrence of the same value
+			while(allFactors.contains(temp)){			//check if the list has a repeated value
+				allFactors.remove( allFactors.indexOf(temp) );		//remove that repeated value using the indexOf(that-repeated-value)
+				exponents.set(i,  (exponents.get(i)+1)  );				//IMPORTANT: must use set, not add to overwrite. Basically increment the value for its exponent for repeated values (started @ 1)
 			}
-			//System.out.println(temp);
-			allFactors.add(i, temp);
+			allFactors.add(i, temp);			//add the value back in once duplicates are gone (put back in same place)
 		}
-		System.out.println("exponnt  " + exponents);
-		//allFactors is now modified & duplicates are removed
 		
+		System.out.println("exponnt  " + exponents);
+		
+		//allFactors is now modified & duplicates are removed
 		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();		//2d list holds the numbers as 1d 2-element arraylists with the 1st element representing the actual number & the 2nd the exponent it's raised to  
 		for(int i = 0; i < allFactors.size(); i++){			//loop over allFactors (could loop over exponents since they're the same size now
 			factors.add(new ArrayList<Integer>());		//add a black arraylist to the inner arraylist
