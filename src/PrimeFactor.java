@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /*
  * Find prime factors of a number in 3 steps
  * 1) Find ALL prime factors
@@ -10,7 +9,18 @@ import java.util.ArrayList;
 public class PrimeFactor {
 	public static void main(String[] args) {
 		PrimeFactor pFact = new PrimeFactor();
-		System.out.println( ( pFact.getPrimeFactors(300) ) );
+		//Scanner 
+		
+		ArrayList<ArrayList<Integer>> factorsAndExponents = pFact.getPrimeFactors(300);
+		System.out.println( factorsAndExponents );
+		for(int i = 0; i< factorsAndExponents.size(); i++){			//display results in a nice format to read
+			System.out.print(factorsAndExponents.get(i).get(0) + "^" + factorsAndExponents.get(i).get(1) );		//print "number^exponent"
+			if(i != (factorsAndExponents.size()-1) ){		//print asterisks for multiplication, but only  if it's not the very last element
+				System.out.print("*");
+			}
+		}
+		
+		
 		
 		//if len=0, then need try catch validation
 		//if len = 1, then it's a prime (on separate line)
@@ -22,13 +32,14 @@ public class PrimeFactor {
 	 * @return a 2d arraylist. Uuter array represents a number as a 2-element arraylist, the 1st element is the actual number, the 2nd is the exponent it's raised to 
 	 */
 	public ArrayList<ArrayList<Integer>> getPrimeFactors(int num){
-		ArrayList<Integer> allFactors = new ArrayList<Integer>();
+		ArrayList<Integer> allFactors = new ArrayList<Integer>();		//stores all the factors initially, then duplicates are removed later
 		for(int divisor = 2; num>1; divisor++){		//start @ 2 since it's the 1st prime go as long as num is >1 (num will be decreased with the inner loop), then increment divisor (doesn't actually check all numbers less than num, it's better. try System.out.println("div "+ divisor);
 			for(; num%divisor == 0; num /=divisor){		//kind of like: if(divisor actuall is a divisor){add to list} & then divide num by that divisor. (So num=12, divisor=2, we find 12%2==0 and now check 12/2=6 for the next value of num
 				allFactors.add(divisor);		//add the prime divisor to list
 			}
 		}
-		
+		//could "return allFactors;" here if you DID want duplicates
+				
 		//remove duplicates & add to exponents array
 		ArrayList<Integer> exponents = new ArrayList<Integer>();
 		for(int i = 0; i< allFactors.size(); i++){	//i is really the index for exponents
@@ -40,8 +51,6 @@ public class PrimeFactor {
 			}
 			allFactors.add(i, temp);			//add the value back in once duplicates are gone (put back in same place)
 		}
-		
-		System.out.println("exponnt  " + exponents);
 		
 		//allFactors is now modified & duplicates are removed
 		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();		//2d list holds the numbers as 1d 2-element arraylists with the 1st element representing the actual number & the 2nd the exponent it's raised to  
