@@ -23,8 +23,8 @@ public class PrimeFactor {
 	 */
 	public ArrayList<ArrayList<Integer>> getPrimeFactors(int num){
 		ArrayList<Integer> allFactors = new ArrayList<Integer>();
-		for(int divisor = 2; num>1; divisor++){
-			for(; num%divisor == 0; num /=divisor){
+		for(int divisor = 2; num>1; divisor++){		//start @ 2 since it's the 1st prime go as long as num is >1 (num will be decreased with the inner loop), then increment divisor (doesn't actually check all numbers less than num, it's better. try System.out.println("div "+ divisor);
+			for(; num%divisor == 0; num /=divisor){		//kind of like: if(divisor actuall is a divisor){add to list} & then divide num by that divisor. (So num=12, divisor=2, we find 12%2==0 and now check 12/2=6 for the next value of num
 				allFactors.add(divisor);		//add the prime divisor to list
 			}
 		}
