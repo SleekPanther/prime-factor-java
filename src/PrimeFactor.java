@@ -7,6 +7,8 @@ import java.util.Scanner;
  * 2) Remove duplicated & increment the value in another list storing exponents for repeated numbers
  * 3) Copy the modified 2 arrayLists (all factors & corresponding exponents) to a new 2d ArrayList
  * Maybe not the most efficient way since it takes 3 passes, but it gives the desired result
+ * 
+ * Actually finding ALL the prime factors (my step 1) is adapted from a video by Michael Triantafelow https://youtu.be/9flsVKN4tZM
  */
 public class PrimeFactor {
 	public static void main(String[] args) {
@@ -15,44 +17,51 @@ public class PrimeFactor {
 		System.out.println("Find prime factors of a number");
 		Scanner input = new Scanner(System.in);
 		int userNum = 10;		//create user input variable with default value
-		boolean isGoodVal = false;while(!isGoodVal){
-			try{
-				System.out.print("Enter a positive whole number & press ENTER: ");
-				userNum = input.nextInt();
-				isGoodVal = true;
-			}
-			catch(InputMismatchException e){
-				System.out.println("   Error! Must be an whole number, no decimals or letters");
-				input.next();		// Move to next so the program doesn't crash
+		
+		String wantAnother = "y";		//controls if the user wants to check another 
+		while(wantAnother.equals("y")){
+			boolean isGoodVal = false;		//assume they got it wrong
+			while(!isGoodVal){		//make sure they entered an integer, then check if it's positive
+				try{
+					System.out.print("Enter a positive whole number & press ENTER: ");
+					userNum = input.nextInt();
+					isGoodVal = true;
+				}
+				catch(InputMismatchException e){
+					System.out.println("   Error! Must be an whole number, no decimals or letters");
+					input.next();		// Move to next so the program doesn't crash
+				}
+				
+				if(userNum < 1){
+					isGoodVal = false;
+					System.out.println("Number must be POSITIVE (greater than 0)");
+				}
 			}
 			
-			if(userNum < 1){
-				isGoodVal = false;
-				System.out.println("Number must be POSITIVE (greater than 0)");
+			
+			ArrayList<ArrayList<Integer>> factorsAndExponents = pFact.getPrimeFactors(userNum);
+			for(int i = 0; i< factorsAndExponents.size(); i++){			//display results in a nice format to read
+				int exponent = factorsAndExponents.get(i).get(1);
+				if(exponent == 1){		//don't bother printing "^1" if exponent is 1
+					System.out.print(factorsAndExponents.get(i).get(0) );		//only print number
+				}
+				else{
+					System.out.print(factorsAndExponents.get(i).get(0) + "^" + exponent );		//print "number^exponent"
+				}
+				if(i != (factorsAndExponents.size()-1) ){		//print asterisks for multiplication, but only  if it's not the very last element
+					System.out.print("*");
+				}
 			}
+			if(factorsAndExponents.size() == 1){
+				System.out.print("\n" + userNum + " is prime");
+			}
+			
+			
+			System.out.print("\n\nFactorize another number (y/n): ");
+			wantAnother = input.next().toLowerCase();		//get input & convert to lowercase
+			wantAnother = wantAnother.charAt(0) + "";		//get only the very 1st character in case they types "Yes" instead of "y"
 		}
-		
-		
-		
-		//int userNum = 120;		//hardcoded for testing
-		
-		ArrayList<ArrayList<Integer>> factorsAndExponents = pFact.getPrimeFactors(userNum);
-		for(int i = 0; i< factorsAndExponents.size(); i++){			//display results in a nice format to read
-			int exponent = factorsAndExponents.get(i).get(1);
-			if(exponent == 1){		//don't bother printing "^1" if exponent is 1
-				System.out.print(factorsAndExponents.get(i).get(0) );		//only print number
-			}
-			else{
-				System.out.print(factorsAndExponents.get(i).get(0) + "^" + exponent );		//print "number^exponent"
-			}
-			if(i != (factorsAndExponents.size()-1) ){		//print asterisks for multiplication, but only  if it's not the very last element
-				System.out.print("*");
-			}
-		}
-		
-		if(factorsAndExponents.size() == 1){
-			System.out.println("\n" + userNum + " is prime");
-		}
+		System.out.println("Thanks");
 	}
 	
 	/**
