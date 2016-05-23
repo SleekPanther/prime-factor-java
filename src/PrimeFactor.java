@@ -10,9 +10,9 @@ public class PrimeFactor {
 	public static void main(String[] args) {
 		PrimeFactor pFact = new PrimeFactor();
 		//Scanner 
+		int userNum = 5;
 		
-		ArrayList<ArrayList<Integer>> factorsAndExponents = pFact.getPrimeFactors(300);
-		System.out.println( factorsAndExponents );
+		ArrayList<ArrayList<Integer>> factorsAndExponents = pFact.getPrimeFactors(userNum);
 		for(int i = 0; i< factorsAndExponents.size(); i++){			//display results in a nice format to read
 			System.out.print(factorsAndExponents.get(i).get(0) + "^" + factorsAndExponents.get(i).get(1) );		//print "number^exponent"
 			if(i != (factorsAndExponents.size()-1) ){		//print asterisks for multiplication, but only  if it's not the very last element
@@ -20,7 +20,9 @@ public class PrimeFactor {
 			}
 		}
 		
-		
+		if(factorsAndExponents.size() == 1){
+			System.out.println("\n" + userNum + " is prime");
+		}
 		
 		//if len=0, then need try catch validation
 		//if len = 1, then it's a prime (on separate line)
