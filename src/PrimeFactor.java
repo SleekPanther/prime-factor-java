@@ -10,16 +10,18 @@ import java.util.ArrayList;
 public class PrimeFactor {
 	public static void main(String[] args) {
 		PrimeFactor pFact = new PrimeFactor();
-		//int[] factors = pFact.getPrimeFactors();
-		System.out.println( ( pFact.getPrimeFactors(1*2*3*4*5) ) );
+		System.out.println( ( pFact.getPrimeFactors(300) ) );
+		
+		//if len=0, then need try catch validation
+		//if len = 1, then it's a prime (on separate line)
 	}
 	
+	/**
+	 * Get Prime factorization of a number when for multiplying it all out
+	 * @param num	a number to get the prime factorization of
+	 * @return a 2d arraylist. Uuter array represents a number as a 2-element arraylist, the 1st element is the actual number, the 2nd is the exponent it's raised to 
+	 */
 	public ArrayList<ArrayList<Integer>> getPrimeFactors(int num){
-		// (hashset, return array, len=0>prime, 1 & num NOT prime,
-		//actually 2d arraylist, do a contains, if(contains){arr.get(index).add(currentVal++), else{add, with 2nd col=1
-		
-		
-		//new stuff
 		ArrayList<Integer> allFactors = new ArrayList<Integer>();
 		for(int divisor = 2; num>1; divisor++){
 			for(; num%divisor == 0; num /=divisor){
@@ -42,14 +44,13 @@ public class PrimeFactor {
 			allFactors.add(i, temp);
 		}
 		System.out.println("exponnt  " + exponents);
+		//allFactors is now modified & duplicates are removed
 		
-		
-		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();
-		int howManyFactors = 0;
-		for(int originalFactor: allFactors){
-			factors.add(new ArrayList<Integer>());
-			//factors.get(howManyFactors).add(999);
-			factors.get(howManyFactors++).add(originalFactor);
+		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();		//2d list holds the numbers as 1d 2-element arraylists with the 1st element representing the actual number & the 2nd the exponent it's raised to  
+		for(int i = 0; i < allFactors.size(); i++){			//loop over allFactors (could loop over exponents since they're the same size now
+			factors.add(new ArrayList<Integer>());		//add a black arraylist to the inner arraylist
+			factors.get(i).add(allFactors.get(i));			//add the number
+			factors.get(i).add(exponents.get(i));			//add the exponent
 		}
 		return factors;
 	}
