@@ -16,7 +16,7 @@ public class PrimeFactor {
 
 		System.out.println("Find prime factors of a number");
 		Scanner input = new Scanner(System.in);
-		String strUserNum = "";		//
+		String strUserNum = "";		//string version of inut, attempt to convert to a number which can raise an exception
 		int userNum = 10;		//create user input variable with default value
 		
 		String wantAnother = "y";		//controls if the user wants to check another 
@@ -25,55 +25,20 @@ public class PrimeFactor {
 			while(!isGoodVal){		//make sure they entered an integer, then check if it's positive
 				try{
 					System.out.print("Enter a positive whole number & press ENTER: ");
-					strUserNum = input.next();
-					userNum = Integer.parseInt(strUserNum);
-//					while( !(input.hasNextInt()) ) {
-//						input.next();
-//						System.out.print("   00Error! Must be an whole number, no decimals or letters: ");
-//					}
-					//userNum = input.nextInt();
-					System.out.println("after get input: ");
-					isGoodVal = true;
-					System.out.println("aft isGoodVal=true  ");
+					strUserNum = input.next();		//get string input
+					userNum = Integer.parseInt(strUserNum);		//attempt to convert to number, (raises exception here)
+					isGoodVal = true;		//if it reaches here, it's surely a number
 				}
-				catch(NumberFormatException e){
-					isGoodVal = false;
-					if(strUserNum.length() > 9){
+				catch(NumberFormatException e){		//catches erros when they enter non-numbers as well as super huge numbers which appear as the same error via overflow
+					if(strUserNum.length() > 9){			//check s the STRING value to see if it's too many digits. Only encountered if it couln't convert to a number. Some 9-digits numers stil can be factors, but in that case the exception is never encountered
 						System.out.println("   Error! Number is too large");
 					}
-					else{
+					else{		//if they entered a letter, special character or decimal
 						System.out.println("   Error! Must be an whole number, no decimals or letters");
 					}
 					
 					input.nextLine();		//advance & eat up the bad value
 				}
-//				catch(InputMismatchException e){
-//					try{
-//						System.out.println("userNum fail " +userNum);
-//						int tempConvert = Integer.parseInt(userNum+"");		//attempt to convert to int again, need to add "" with concatenation, should cause an error if there are any letters
-//							//also catches stuff like  575757677676767676gg, even though it has letters in it, it's still caught here
-//						System.out.println("str version " + tempConvert);
-//						//String strUserNum = userNum + "";
-//						//System.out.println(strUserNum + "   " +  strUserNum.length());
-//						System.out.println("   Error! Numer is too large, pick something smaller or the program will freeze");
-////						if(strUserNum.length() < 4){
-////							System.out.println("   Error! Numer is too large, pick something smaller or the program will freeze");
-////						}
-//					}
-//					catch(NumberFormatException e1){
-//						System.out.println("   Error! Must be an whole number, no decimals or letters");
-//					}
-//					
-//					
-////					System.out.println(strUserNum + strUserNum.length());
-////					if(strUserNum.length() > 8){
-////						System.out.println("   Error! Numer is too large, pick something smaller or the program will freeze");
-////					}
-////					else{
-////						System.out.println("   Error! Must be an whole number, no decimals or letters");
-////					}
-//					input.next();		// Move to next so the program doesn't crash
-//				}
 				
 				if(userNum < 1){
 					isGoodVal = false;
