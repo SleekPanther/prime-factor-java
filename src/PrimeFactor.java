@@ -16,6 +16,7 @@ public class PrimeFactor {
 
 		System.out.println("Find prime factors of a number");
 		Scanner input = new Scanner(System.in);
+		String strUserNum = "";		//
 		int userNum = 10;		//create user input variable with default value
 		
 		String wantAnother = "y";		//controls if the user wants to check another 
@@ -24,13 +25,55 @@ public class PrimeFactor {
 			while(!isGoodVal){		//make sure they entered an integer, then check if it's positive
 				try{
 					System.out.print("Enter a positive whole number & press ENTER: ");
-					userNum = input.nextInt();
+					strUserNum = input.next();
+					userNum = Integer.parseInt(strUserNum);
+//					while( !(input.hasNextInt()) ) {
+//						input.next();
+//						System.out.print("   00Error! Must be an whole number, no decimals or letters: ");
+//					}
+					//userNum = input.nextInt();
+					System.out.println("after get input: ");
 					isGoodVal = true;
+					System.out.println("aft isGoodVal=true  ");
 				}
-				catch(InputMismatchException e){
-					System.out.println("   Error! Must be an whole number, no decimals or letters");
-					input.next();		// Move to next so the program doesn't crash
+				catch(NumberFormatException e){
+					isGoodVal = false;
+					if(strUserNum.length() > 9){
+						System.out.println("   Error! Number is too large");
+					}
+					else{
+						System.out.println("   Error! Must be an whole number, no decimals or letters");
+					}
+					
+					input.nextLine();		//advance & eat up the bad value
 				}
+//				catch(InputMismatchException e){
+//					try{
+//						System.out.println("userNum fail " +userNum);
+//						int tempConvert = Integer.parseInt(userNum+"");		//attempt to convert to int again, need to add "" with concatenation, should cause an error if there are any letters
+//							//also catches stuff like  575757677676767676gg, even though it has letters in it, it's still caught here
+//						System.out.println("str version " + tempConvert);
+//						//String strUserNum = userNum + "";
+//						//System.out.println(strUserNum + "   " +  strUserNum.length());
+//						System.out.println("   Error! Numer is too large, pick something smaller or the program will freeze");
+////						if(strUserNum.length() < 4){
+////							System.out.println("   Error! Numer is too large, pick something smaller or the program will freeze");
+////						}
+//					}
+//					catch(NumberFormatException e1){
+//						System.out.println("   Error! Must be an whole number, no decimals or letters");
+//					}
+//					
+//					
+////					System.out.println(strUserNum + strUserNum.length());
+////					if(strUserNum.length() > 8){
+////						System.out.println("   Error! Numer is too large, pick something smaller or the program will freeze");
+////					}
+////					else{
+////						System.out.println("   Error! Must be an whole number, no decimals or letters");
+////					}
+//					input.next();		// Move to next so the program doesn't crash
+//				}
 				
 				if(userNum < 1){
 					isGoodVal = false;
