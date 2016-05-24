@@ -16,6 +16,7 @@ public class PrimeFactor {
 
 		System.out.println("Find prime factors of a number");
 		Scanner input = new Scanner(System.in);
+		String strUserNum = "";		//string version of inut, attempt to convert to a number which can raise an exception
 		long userNum = 10;		//create user input variable with default value
 		
 		String wantAnother = "y";		//controls if the user wants to check another 
@@ -24,15 +25,21 @@ public class PrimeFactor {
 			while(!isGoodVal){		//make sure they entered an integer, then check if it's positive
 				try{
 					System.out.print("Enter a positive whole number & press ENTER: ");
-					userNum = input.nextLong();
-					isGoodVal = true;
+					strUserNum = input.next();		//get string input
+					while(strUserNum.length() > 16){			//check s the STRING value to see if it's too many digits. Only encountered if it couln't convert to a number. Some 9-digits numers stil can be factors, but in that case the exception is never encountered
+						System.out.println("   Error! Number is too many digits");
+						System.out.print("Enter a positive whole number & press ENTER: ");
+						strUserNum = input.next();		//get string input
+					}
+					userNum = Long.parseLong(strUserNum);		//attempt to convert to number, (raises exception here)
+					isGoodVal = true;			//if it reaches here, it's surely a number
 				}
-				catch(InputMismatchException e){
-					System.out.println("   Error! Must be an whole number, no decimals or letters");
-					input.next();		// Move to next so the program doesn't crash
+				catch(NumberFormatException e){		//if they entered a special character, letter or decimal instead of a whole number
+						System.out.println("   Error! Must be an whole number, no decimals, symbols or letters");
+						input.nextLine();		//advance & eat up the bad value
 				}
 				
-				if(userNum < 1){
+				if(userNum < 1){			//check to make sure their number is positive (at this point it must be a number)
 					isGoodVal = false;
 					System.out.println("Number must be POSITIVE (greater than 0)");
 				}
